@@ -23,7 +23,7 @@ from drf_yasg import openapi
 
 urlpatterns = [
     path(r'api/', include('app_common.urls')),
-    # path(r'api/', include('app_student.urls'))
+    path(r'api/', include('app_data.urls'))
 ]
 
 if settings.DEBUG:

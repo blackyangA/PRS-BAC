@@ -7,6 +7,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 
 from app_main import permissions
+from utils.permission import ReadOnly
 from app_common.serializers import UserSerializer, GroupSerializer
 
 User = get_user_model()
@@ -18,7 +19,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAdminUser | permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAdminUser | (ReadOnly & permissions.IsAuthenticated)]
 
     def get_queryset(self):
         """
@@ -34,7 +35,7 @@ class UserViewSet(viewsets.ModelViewSet):
         if self.action == 'create':
             permission_classes = [AllowAny]
         else:
-            permission_classes = [permissions.IsAdminUser | permissions.IsAuthenticatedOrReadOnly]
+            permission_classes = [permissions.IsAdminUser | (ReadOnly & permissions.IsAuthenticated)]
         return [permission() for permission in permission_classes]
 
     def get_object(self):

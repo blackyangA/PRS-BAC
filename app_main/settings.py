@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     # customer app
     'app_common',
-    # 'app_student'
+    'app_data'
 ]
 
 MIDDLEWARE = [
